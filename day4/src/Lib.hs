@@ -2,14 +2,12 @@ module Lib
     ( someFunc
     ) where
 
-digits :: Int -> [Int]
-digits = map (read . (:[])) . show
+import Data.Map as Map
 
-hasDouble [] = False
-hasDouble [x] = False
-hasDouble (x:y:xs)
-    | x == y    = True
-    | otherwise = hasDouble (y:xs)
+digits :: Int -> [Int]
+digits = Prelude.map (read . (:[])) . show
+
+hasDouble xs = (not . Map.null) $ Map.filter (== 2) $ fromAscListWith (+) (Prelude.map (\x -> (x, 1)) xs)
 
 neverDecreases [] = True
 neverDecreases [x] = True
