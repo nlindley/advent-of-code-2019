@@ -6,4 +6,5 @@ import Data.List.Split
 main :: IO ()
 main = do
   contents <- readFile "input.txt"
-  print $ head $ someFunc (map read $ splitOn "," contents :: [Int])
+  let (noun, verb) = findInputs (map read $ splitOn "," contents :: [Int])
+  print $ 100 * noun + verb

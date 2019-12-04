@@ -1,5 +1,5 @@
 module Lib
-    ( someFunc
+    ( findInputs
     ) where
 
 import Data.Vector
@@ -19,5 +19,9 @@ run pc v
     | opcode == 2  = run (pc + 4) $ applyOp (*) pc v
     where opcode = v ! pc
 
-someFunc :: [Int] -> [Int]
-someFunc xs = toList $ run 0 (fromList xs)
+replaceNounVerb noun verb v = v // [(1, noun), (2, verb)]
+
+findInputs :: [Int] -> (Int, Int)
+findInputs xs = let v = fromList xs
+                    expected = 19690720
+                in Prelude.head [(noun, verb) | noun <- [0..99], verb <- [0..99], (run 0 (replaceNounVerb noun verb v)) ! 0 == expected]
