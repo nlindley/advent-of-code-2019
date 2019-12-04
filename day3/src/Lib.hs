@@ -21,6 +21,11 @@ points = scanl addPairs (0, 0)
 
 manhattanDistance x = (abs $ fst x) + (abs $ snd x)
 
+distanceToNode xs x =
+    case elemIndex x xs of
+        Just n  -> n
+        Nothing -> 0
+
 minimumDistance :: String -> Int
 minimumDistance input =
     let insts = instructions $ lines input
@@ -29,4 +34,6 @@ minimumDistance input =
         points1 = points wire1
         points2 = points wire2
         intersections = intersect points1 points2
-    in minimum $ filter (>0) $ map manhattanDistance intersections
+        steps1 = filter (>0) $ map (distanceToNode points1) intersections
+        steps2 = filter (>0) $ map (distanceToNode points2) intersections
+    in minimum $ zipWith (+) steps1 steps2
