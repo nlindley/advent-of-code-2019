@@ -8,5 +8,6 @@ main :: IO ()
 main = do
   contents <- readFile "input.txt"
   let orbitPairs = map (\[x, y] -> (x, y)) (map (splitOn ")") (lines contents))
-  let count = orbitCount orbitPairs
-  print $ count
+  let orbitTree = orbits orbitPairs
+  -- putStr $ drawTree orbitTree
+  print $ orbitalTransfers orbitTree "YOU" "SAN"
